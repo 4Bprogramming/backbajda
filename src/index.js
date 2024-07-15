@@ -10,7 +10,17 @@ const {
   PORT
 } = process.env;
 
+
 const app = express();
+
+// Configura CORS
+const corsOptions = {
+  origin: 'http://localhost:3000', // Cambia esto al origen de tu aplicación Next.js en producción
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+app.use(express.json()); 
 
  app.use( router);
 
