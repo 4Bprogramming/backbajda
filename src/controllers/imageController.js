@@ -16,19 +16,32 @@ const uploadToCloudinary = (fileBuffer) => {
 
 export const uploadImages = async (req, res) => {
   try {
-    const images = req.files;
-    if (!images || images.length === 0) {
-      return res.status(400).json({ error: 'No images provided' });
+    const data = await req.formData();
+    const image = data.get("image");
+    const imagesArray = data.getAll("imagesArray");
+    console.log('uploadImagesCloud.image==>', image);
+    console.log('uploadImagesCloud.imagesArray==>', imagesArray);
+  
+    if (!image && imagesArray.length === 0) {
+      return res.status(400).json({ error: 'No images provided' });;
     }
-
+    
     const cloudinaryObjectArray = [];
-    for (const file of images) {
-      const imageBuffer = file.buffer;
+    if (image) {
+      const imageBytes = await image.arrayBuffer();
+      const imageBuffer = Buffer.from(imageBytes);
       const imageUrl = await uploadToCloudinary(imageBuffer);
       cloudinaryObjectArray.push(imageUrl);
     }
+  
+    for (const file of imagesArray) {
+      const fileBytes = await file.arrayBuffer();
+      const fileBuffer = Buffer.from(fileBytes);
+      const fileUrl = await uploadToCloudinary(fileBuffer);
+      cloudinaryObjectArray.push(fileUrl);
+    }
+   res.json(cloudinaryObjectArray);
 
-    res.json(cloudinaryObjectArray);
   } catch (error) {
     console.error('Error uploading images:', error);
     res.status(500).json({ error: 'Failed to upload images' });
@@ -37,7 +50,8 @@ export const uploadImages = async (req, res) => {
 
 export const deleteImages = async (req, res) => {
   try {
-    const { publicId, projectId } = req.body;
+     const body = await req.text();
+    const { publicId, projectId } = JSON.parse(body);
 
     if (!publicId && !projectId) {
       return res.status(400).json({ error: 'Image ID and Project ID are required' });
