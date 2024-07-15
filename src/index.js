@@ -3,7 +3,7 @@ import  {sequelize} from "./database/db.js"
 import router from './routes/index.js'
 import * as dotenv from 'dotenv';
 dotenv.config();
-
+import cors from 'cors';
 import './models/Project.js'
 
 const {
