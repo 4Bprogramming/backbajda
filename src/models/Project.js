@@ -47,6 +47,9 @@ Project.init(
 
 export default  Project;
 
+Project.hasMany(DBIMAGE, { foreignKey: 'id' });
+DBIMAGE.belongsTo(Project, { foreignKey: 'id' });
+
 // import { DataTypes } from "sequelize";
 // import { sequelize } from "../database/db.js";
 
