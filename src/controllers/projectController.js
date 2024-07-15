@@ -8,6 +8,7 @@ const cloudinary = v2;
 export const createProject = async (req, res) => {
   try {
     const { body } = req.body;
+    console.log('REQ.BODY==>', req.body);
     const {images} = req.body.images
     const project = await Project.create({
       place: body.place,
