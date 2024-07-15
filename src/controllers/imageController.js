@@ -14,12 +14,14 @@ const uploadToCloudinary = (fileBuffer) => {
   });
 };
 
+
 export const uploadImages = async (req, res) => {
   try {
     const { files } = req;
-    const image = req.body.image ? req.body.image : null;
+    const image = files.image ? files.image[0] : null;
+    const imagesArray = files.imagesArray ? files.imagesArray : [];
 
-    if (!image && (!files || files.length === 0)) {
+    if (!image && imagesArray.length === 0) {
       return res.status(400).json({ error: 'No images provided' });
     }
 
@@ -31,7 +33,7 @@ export const uploadImages = async (req, res) => {
       cloudinaryObjectArray.push(imageUrl);
     }
 
-    for (const file of files) {
+    for (const file of imagesArray) {
       const fileBuffer = Buffer.from(file.buffer);
       const fileUrl = await uploadToCloudinary(fileBuffer);
       cloudinaryObjectArray.push(fileUrl);
@@ -43,7 +45,6 @@ export const uploadImages = async (req, res) => {
     res.status(500).json({ error: 'Failed to upload images' });
   }
 };
-
 export const deleteImages = async (req, res) => {
   try {
      const body = await req.text();

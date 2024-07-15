@@ -22,12 +22,26 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json()); 
-// Configura multer
+//Configura multer
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 10 * 1024 * 1024 }, // limita el tamaño de archivo a 10MB
+});
 
-app.use(upload.array('imagesArray')); // Middleware de multer para manejar los archivos subidos
-
+app.use((req, res, next) => {
+  upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'imagesArray', maxCount: 10 },
+  ])(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      return res.status(400).json({ error: err.message });
+    } else if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    next();
+  });
+});
  app.use( router);
 
 //nos aseguramos de escoger el puerto
