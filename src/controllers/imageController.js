@@ -16,6 +16,7 @@ const uploadToCloudinary = (fileBuffer) => {
 
 export const uploadImages = async (req, res) => {
   try {
+    console.log('req==>', req);
     const data = await req.formData();
     const image = data.get("image");
     const imagesArray = data.getAll("imagesArray");
