@@ -1,12 +1,12 @@
 import { Sequelize, Model, DataTypes } from "sequelize"
 import {sequelize} from "../database/db.js"
-
+import DBIMAGE from "./DBIMAGE.js";
 
 class Project extends Model {}
 
 Project.init(
     {
-      projectId: {
+      id: {
               type: DataTypes.INTEGER,
               // defaultValue: DataTypes.UUIDV4,
               allowNull: false,
@@ -41,7 +41,7 @@ Project.init(
       timestamps: false,
     },
     Project.associate = models => {
-      Project.hasMany(models.Image);
+      Project.hasMany(models.DBIMAGE);
     }
 );
 
