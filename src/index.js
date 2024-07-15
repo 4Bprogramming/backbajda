@@ -4,6 +4,7 @@ import router from './routes/index.js'
 import * as dotenv from 'dotenv';
 dotenv.config();
 import cors from 'cors';
+import multer from 'multer'; // Importa multer
 import './models/Project.js'
 
 const {
@@ -21,6 +22,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json()); 
+// Configura multer
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+app.use(upload.array('imagesArray')); // Middleware de multer para manejar los archivos subidos
 
  app.use( router);
 
