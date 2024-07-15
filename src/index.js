@@ -17,7 +17,7 @@ const app = express();
 //nos aseguramos de escoger el puerto
 async function intro() {
     try {
-      await sequelize.sync({force: true});
+      await sequelize.sync({force: false});
       app.listen(PORT, () => {
         console.log(`"Listening on port ${PORT}`);
       });
