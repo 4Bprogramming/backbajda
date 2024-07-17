@@ -14,7 +14,7 @@ Project.init(
               autoIncrement: true,
             },
             place: {
-              type: DataTypes.TEXT,
+              type: DataTypes.STRING,
             },
             title: {
               type: DataTypes.STRING,
