@@ -21,7 +21,7 @@ DBIMAGE.init(
       type: DataTypes.STRING,
     },
     main: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN, 
     },
   },
   {
