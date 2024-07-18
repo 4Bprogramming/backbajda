@@ -45,7 +45,11 @@ app.use((req, res, next) => {
 });
  app.use( router);
 
-//nos aseguramos de escoger el puerto
+// Define las asociaciones entre modelos
+Project.hasMany(DBIMAGE, { foreignKey: 'projectId', as: 'images' });
+DBIMAGE.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
+
+// Sincroniza la base de datos y escucha en el puerto especificado
 async function intro() {
     try {
       await sequelize.sync({force: true});

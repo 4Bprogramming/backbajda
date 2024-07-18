@@ -14,7 +14,11 @@ DBIMAGE.init(
       
     },
     projectId:{
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      references: {
+        model: Project,
+        key: 'id'
+      }
     },
     url: {
       type: DataTypes.STRING,
@@ -26,14 +30,14 @@ DBIMAGE.init(
   {
     sequelize,
     modelName: "DBIMAGE",
-  },
-  {
     freezeTableName: true,
     timestamps: false,
   },
-  DBIMAGE.associate = models => {
-    DBIMAGE.belongsTo(models.Project);
-  }
+  // {
+  // },
+  // DBIMAGE.associate = models => {
+  //   DBIMAGE.belongsTo(models.Project);
+  // }
 );
 
 export default DBIMAGE;

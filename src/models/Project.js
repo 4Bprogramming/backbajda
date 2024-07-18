@@ -1,4 +1,4 @@
-import { Sequelize, Model, DataTypes } from "sequelize"
+import {  Model, DataTypes } from "sequelize"
 import {sequelize} from "../database/db.js"
 import DBIMAGE from "./DBIMAGE.js";
 
@@ -35,20 +35,20 @@ Project.init(
     {
         sequelize,
         modelName: "Project",
+        freezeTableName: true,
+        timestamps: false,
     },
-    {
-      freezeTableName: true,
-      timestamps: false,
-    },
-    Project.associate = models => {
-      Project.hasMany(models.DBIMAGE);
-    }
+    // {
+    // },
+    // Project.associate = models => {
+    //   Project.hasMany(models.DBIMAGE);
+    // }
 );
 
 export default  Project;
 
-Project.hasMany(DBIMAGE, { foreignKey: 'id' });
-DBIMAGE.belongsTo(Project, { foreignKey: 'id' });
+// Project.hasMany(DBIMAGE, { foreignKey: 'id' });
+// DBIMAGE.belongsTo(Project, { foreignKey: 'id' });
 
 // import { DataTypes } from "sequelize";
 // import { sequelize } from "../database/db.js";
