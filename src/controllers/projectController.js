@@ -8,7 +8,10 @@ const cloudinary = v2;
 export const createProject = async (req, res) => {
   try {
     const { body } = req.body;
-    console.log('REQ.BODY==>', req);
+    console.log('REQ.BODY==>', req.body);
+    console.log('REQ.BODY.place==>', req.body.place);
+    console.log('TYPEOF REQ.BODY.place==>',typeof req.body.place);
+    
     const {images} = req.body.images
     const project = await Project.create({
       place: body.place,
@@ -28,9 +31,11 @@ export const createProject = async (req, res) => {
       }));
       await DBIMAGE.bulkCreate(imageRecords);
     }
-
+    console.log('project==>', project);
+    console.log('imageRecords==>', imageRecords);
     res.status(201).json(project);
   } catch (error) {
+    console.log('ERROR===>', error);
     res.status(500).json({ error: error.message });
   }
 };
