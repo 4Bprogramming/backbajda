@@ -6,24 +6,19 @@ class DBIMAGE extends Model {}
 
 DBIMAGE.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
+    cloudinaryID: {
+      type: DataTypes.STRING,
       // defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
+      
+    },
+    projectId:{
+      type: DataTypes.INTEGER
     },
     url: {
       type: DataTypes.STRING,
     },
-    // projectId: {
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: "project", // 'projects' refers to table name
-    //     key: "projectId", // 'id' refers to column name in projects table
-        
-    //   },
-    // },
     main: {
       type: DataTypes.BOOLEAN,
     },

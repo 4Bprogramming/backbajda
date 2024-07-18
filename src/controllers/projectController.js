@@ -22,9 +22,10 @@ export const createProject = async (req, res) => {
     });
 
     if (images && images.length > 0) {
-      const imageRecords = images.map((url, index) => ({
-        url: url,
+      const imageRecords = images.map((image, index) => ({
+        url: image.secure_url,
         main: index === 0 ? true : false,
+        cloudinaryID: image.public_id,
         projectId: project.id,
       }));
       await DBIMAGE.bulkCreate(imageRecords);
