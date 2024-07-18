@@ -47,7 +47,7 @@ app.use((req, res, next) => {
 //nos aseguramos de escoger el puerto
 async function intro() {
     try {
-      await sequelize.sync({force: false});
+      await sequelize.sync({force: true});
       app.listen(PORT, () => {
         console.log(`"Listening on port ${PORT}`);
       });
