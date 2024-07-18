@@ -22,6 +22,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 //Configura multer
 const storage = multer.memoryStorage();
 const upload = multer({
