@@ -1,6 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../database/db.js";
-import Project from "./Project.js";
+
 
 class DBIMAGE extends Model {}
 
@@ -15,10 +15,7 @@ DBIMAGE.init(
     },
     projectId:{
       type: DataTypes.INTEGER,
-      references: {
-        model: Project,
-        key: 'id'
-      }
+      
     },
     url: {
       type: DataTypes.STRING,
