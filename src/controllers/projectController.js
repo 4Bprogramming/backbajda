@@ -7,32 +7,30 @@ const cloudinary = v2;
 // Crear un nuevo proyecto y asociar imágenes
 export const createProject = async (req, res) => {
   try {
-    const { body } = req.body;
+    const { title, place, rooms, year, description, area, images } = req.body;
     console.log('REQ.BODY==>', req.body);
     console.log('REQ.BODY.place==>', req.body.place);
-    console.log('TYPEOF REQ.BODY.place==>',typeof req.body.place);
-    
-    const {images} = req.body.images
+    console.log('TYPEOF REQ.BODY.place==>', typeof req.body.place);
+
     const project = await Project.create({
-      place: body.place,
-      title: body.title,
-      area: +body.area,
-      description: body.description,
-      rooms: +body.rooms,
-      year: +body.year
-    },);
+      place: place,
+      title: title,
+      area: +area,
+      description: description,
+      rooms: +rooms,
+      year: +year
+    });
 
     if (images && images.length > 0) {
-      const imageRecords = images.map((object, index) => ({
-        url: object.secure_url,
+      const imageRecords = images.map((url, index) => ({
+        url: url,
         main: index === 0 ? true : false,
-        cloudinaryID: object.public_id,
         projectId: project.id,
       }));
       await DBIMAGE.bulkCreate(imageRecords);
     }
+
     console.log('project==>', project);
-    console.log('imageRecords==>', imageRecords);
     res.status(201).json(project);
   } catch (error) {
     console.log('ERROR===>', error);
