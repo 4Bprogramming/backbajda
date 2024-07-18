@@ -6,6 +6,8 @@ dotenv.config();
 import cors from 'cors';
 import multer from 'multer'; // Importa multer
 import './models/Project.js'
+import Project from './models/Project.js';
+import DBIMAGE from './models/DBIMAGE.js';
 
 const {
   PORT
