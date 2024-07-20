@@ -64,7 +64,7 @@ export const deleteImages = async (req, res) => {
       }));
 
       await Promise.all(publicId.map(async (cloudinaryID) => {
-        await DBIMAGE.destroy({ where: { url: cloudinaryID } });
+        await DBIMAGE.destroy({ where: { cloudinaryID: cloudinaryID } });
       }));
     } else if (publicId && !Array.isArray(publicId) && projectId) {
       const response = await cloudinary.uploader.destroy(publicId);
@@ -72,7 +72,7 @@ export const deleteImages = async (req, res) => {
         throw new Error(`Failed to delete image with ID ${publicId}: ${response.result}`);
       }
 
-      await DBIMAGE.destroy({ where: { id: publicId } });
+      await DBIMAGE.destroy({ where: { cloudinaryID: publicId } });
     } else if (publicId && !projectId) {
       const response = await cloudinary.uploader.destroy(publicId);
       if (response.result !== 'ok') {
