@@ -47,8 +47,9 @@ export const uploadImages = async (req, res) => {
 };
 export const deleteImages = async (req, res) => {
   try {
-     const body = await req.text();
+     const body = await req.body;
     const { publicId, projectId } = JSON.parse(body);
+    console.log('publicId', publicId);
 
     if (!publicId && !projectId) {
       return res.status(400).json({ error: 'Image ID and Project ID are required' });
