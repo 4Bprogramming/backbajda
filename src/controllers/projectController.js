@@ -101,18 +101,9 @@ export const deleteProject = async (req, res) => {
   try {
     const { imageIds, projectId } = req.body;
 
-    if (imageIds && imageIds.length > 0) {
-      // Desconectar y eliminar imágenes
-      await Promise.all(
-        imageIds.map(async (idImage) => {
-          await Image.destroy({ where: { cloudinaryID: idImage } });
-        })
-      );
-    }
-
     if (projectId) {
       // Eliminar imágenes del proyecto en Cloudinary
-      const images = await DBIMAGE.findAll({ where: { projectId } });
+      const images = await DBIMAGE.findAll({ where: { projectId: projectId } });
       const publicIds = images.map((image) => image.cloudinaryID);
 
       cloudinary.config({
@@ -131,10 +122,19 @@ export const deleteProject = async (req, res) => {
           }
         })
       );
-
-      await DBIMAGE.destroy({ where: { projectId } });
+      //Eliminar imagenes del proyecto y proyecto
+      await DBIMAGE.destroy({ where: { projectId: projectId } });
       await Project.destroy({ where: { id: projectId } });
     }
+    if (imageIds && imageIds.length > 0) {
+      // Desconectar y eliminar imágenes
+      await Promise.all(
+        imageIds.map(async (idImage) => {
+          await DBIMAGE.destroy({ where: { cloudinaryID: idImage } });
+        })
+      );
+    }
+
 
     res
       .status(204)
