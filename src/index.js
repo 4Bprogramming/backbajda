@@ -54,7 +54,7 @@ DBIMAGE.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
 // Sincroniza la base de datos y escucha en el puerto especificado
 async function intro() {
     try {
-      await sequelize.sync({force: true});
+      await sequelize.sync({force: false});
       app.listen(PORT, () => {
         console.log(`"Listening on port ${PORT}`);
       });

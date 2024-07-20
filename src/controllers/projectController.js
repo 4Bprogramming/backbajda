@@ -57,7 +57,12 @@ export const getAllProjects = async (req, res) => {
 // Obtener un proyecto por ID con sus imágenes
 export const getProjectById = async (req, res) => {
   try {
-    const project = await Project.findByPk(req.params.id, { include: DBIMAGE });
+    const project = await Project.findByPk(req.params.id, { 
+      include: {
+        model: DBIMAGE,
+        as: 'images'  // Especifica el alias aquí
+      }
+     });
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
