@@ -42,7 +42,12 @@ export const createProject = async (req, res) => {
 // Obtener todos los proyectos con sus imágenes
 export const getAllProjects = async (req, res) => {
   try {
-    const projects = await Project.findAll({ include: DBIMAGE });
+    const projects = await Project.findAll({
+       include: {
+        model: DBIMAGE,
+        as: 'images'  // Especifica el alias aquí
+      }
+       });
     res.status(200).json(projects);
   } catch (error) {
     res.status(500).json({ error: error.message });
