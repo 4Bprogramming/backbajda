@@ -48,7 +48,7 @@ export const uploadImages = async (req, res) => {
 export const deleteImages = async (req, res) => {
   try {
      const body = await req.body;
-    const { publicId, projectId } = JSON.parse(body);
+    const { publicId, projectId } = body;
     console.log('publicId', publicId);
 
     if (!publicId && !projectId) {
