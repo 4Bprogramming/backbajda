@@ -18,7 +18,7 @@ const app = express();
 
 // Configura CORS
 const corsOptions = {
-  origin: 'https://bajdanext.vercel.app/', // Cambia esto al origen de tu aplicación Next.js en producción
+  origin: 'https://bajdanext.vercel.app', // Cambia esto al origen de tu aplicación Next.js en producción
   optionsSuccessStatus: 200,
 };
 
